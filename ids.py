@@ -1,0 +1,5 @@
+RUN_DROPDOWN = "Run_dropdown"
+SELECT_ALL_RUNS_BUTTON = "select-all-runs-button"
+RUN_63 = "Run 63"
+W3_Run_63_Path = "./W3_Run_63/results/"
+W5_Run_697_Path = "./W5_Run_697/results/"
