@@ -1,0 +1,7 @@
+import uproot 
+import matplotlib.pyplot as plt
+import plotly.express as px
+import pandas as pd
+import plotly.tools as tls
+
+fh = uproot.open(r".\W3_Run_63\data\strun63_3.root") 
