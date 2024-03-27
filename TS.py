@@ -8,8 +8,6 @@ import pandas as pd
 import plotly.express as px
 
 
-
-
 def TS_func(module, stream):
     fh = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_4.root")
     fh2 = uproot.open(r"N:\CERN\W5_Run_697\data\strun697_4.root")
@@ -31,6 +29,11 @@ def TS_func(module, stream):
 
     fig.update_layout(coloraxis_colorbar=dict(title="Counts"))
 
+    fh2 = uproot.open(r"N:\CERN\W5_Run_697\data\strun697_4.root")
+    hist2 = fh2[f'h_scan{module};{stream}']
+    data_transposed2 = hist2.values().T
+    df2 = pd.DataFrame(data_transposed2)
+    
     fig2 = px.imshow(df2, aspect='auto', labels=dict(x="Channel number", y="Counts"),
                     title="Strobe Delay")
 

@@ -1,107 +1,77 @@
 import uproot 
 import os
 
-fh = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_4.root")
 
-fh2 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_5.root")
 
-fh3 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_6.root")
+general_path1 = r"N:\CERN\W3_Run_63\data\strun63_"
+file_number = 10  # Change this to the specific file number you want to process
 
-fh4 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_7.root")
+file_path = f"{general_path1}{file_number}.root"
+print("File path:", file_path)
 
-fh5 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_8.root")
+uproot_obj = uproot.open(file_path)
 
-fh6 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_9.root")
-
-fh7 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_10.root")
-
-fh8 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_11.root")
-
-fh9 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_12.root")
-
-fh10 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_13.root")
-
-fh11 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_14.root")
-
-fh12 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_15.root")
-
-fh13 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_16.root")
-
-fh14 = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_17.root")
+charge = uproot_obj['configuration/module_0/chip_4/Calibration voltage']
+print("Charge:", charge)
 """
-folder_path = r"N:\CERN\W3_Run_63\data"
+general_path = r"N:\CERN\W3_Run_63\data\strun63_"
 
-prefix = 'strun63_'
-files = os.listdir(folder_path)
-files_filtered = [file for file in files if file.startswith(prefix) and file.endswith('.root')]
+start, end = 4, 18
 
-threshold_start = files_filtered.index('strun63_4')
+files = [f"{general_path}{i}.root" for i in range(start, end)]
+print(files)
+#print(files)
 
-for file in files_filtered[threshold_start:]: 
-    file_path = os.path.join(folder_path, file)
-    with uproot.open(file_path) as fh: 
-        charge_m0 = fh['configuration/module_0/chip_4/Calibration voltage']
-        charge_m1 = fh['configuration/module_1/chip_4/Calibration voltage']
-        
-        print(f"Processing file: {file_path}")
-        print(f"Charge data: {charge_m0}")
-        print(f"Charge data: {charge_m1}")
-        
-
-"""
-
-#different_charges = []
-#fh = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_4.root") 
+uproot_objects = {}  
 
 
 
-#int(float)
+for i, files in enumerate(files):
+    key = f"fh{i+1}"
+    uproot_objects[key] = uproot.open(files)
 
-#strun63_4
-charge = fh['configuration/module_0/chip_4/Calibration voltage']
+#print(uproot_objects.items())
 
-charge2 = fh2['configuration/module_0/chip_4/Calibration voltage']
+charges = {key: uproot_obj['configuration/module_0/chip_4/Calibration voltage'] 
+           for key, uproot_obj in uproot_objects.items()}
 
+print(charges.items())
+for key, charge in charges.items():
+    print(f"{key}: {charge}, ", end='')
+    
+    
 
-charge3 = fh3['configuration/module_0/chip_4/Calibration voltage']
-
-charge4 = fh4['configuration/module_0/chip_4/Calibration voltage']
-
-
-charge5 = fh5['configuration/module_0/chip_4/Calibration voltage']
-charge6 = fh6['configuration/module_1/chip_4/Calibration voltage']
-
-charge7 = fh7['configuration/module_1/chip_4/Calibration voltage']
-
-charge8 = fh8['configuration/module_1/chip_4/Calibration voltage']
-
-charge9 = fh9['configuration/module_1/chip_4/Calibration voltage']
-
-charge10 = fh10['configuration/module_1/chip_4/Calibration voltage']
-
-charge11 = fh11['configuration/module_1/chip_4/Calibration voltage']
-
-charge12 = fh12['configuration/module_1/chip_4/Calibration voltage']
-
-charge13 = fh13['configuration/module_1/chip_4/Calibration voltage']
-
-charge14 = fh14['configuration/module_1/chip_4/Calibration voltage']
-
-
+>    if (qCentre == 1.0) {
+>      charges[0] = 0.4993;
+>      charges[1] = 0.998;
+>      charges[2] = 1.4969;
+> 
+>      chargesInDAC[0] = 22;
+>      chargesInDAC[1] = 48;
+>      chargesInDAC[2] = 74;
+>    } else if (qCentre == 2.0) {
+>      charges[0] = 0.998;
+>      charges[1] = 1.996;
+>      charges[2] = 2.993;
+> 
+>      chargesInDAC[0] = 48;
+>      chargesInDAC[1] = 100;
+>      chargesInDAC[2] = 152;
 
 
+   Float_t chargesInDAC[10] =
+     {6, 22, 38, 48, 62,
+      74, 100, 152, 204, 308};
+   Float_t charges[10] =
+     {0.192, 0.4993, 0.806, 0.998, 1.267,
+      1.4969, 1.996, 2.993, 3.991, 5.985};
+      
 
-print(charge, charge2, charge3, charge4, charge5, charge6, charge7, charge8, charge9, charge10, charge11, charge12, charge13, charge14)
-
-
-#strun63_5
+   Float_t charges[12] =
+{0.749,0.998,1.248,1.497,1.746,1.996,2.993,4.010,5.007,6.004,7.999,9.897};
+   Float_t chargesInDAC[12] = {   35,   48,   61,   74,   87,  100, 
+152,  205,  258,  309,  413,  511};
 
 
 
 """
-print(fh)
-
-print(fh.keys(recursive=False))
-
-
-print(charge)"""

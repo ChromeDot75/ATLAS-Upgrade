@@ -34,7 +34,7 @@ scatter_trace = go.Scatter(
     x=[x_point],
     y=[y_point],
     mode='markers',
-    marker=dict(color='green', symbol='circle', size=8),
+    marker=dict(color='green', symbol='circle', size=12),  # Increased marker size
     name='mean'
 )
 
@@ -43,7 +43,8 @@ data_trace = go.Scatter(
     x=x_values,
     y=values,
     mode='lines+markers',
-    name='Data Points'
+    name='Data Points',
+    marker=dict(size=8)  # Adjust marker size
 )
 
 # Fitted erfc function
@@ -65,3 +66,4 @@ layout = go.Layout(
 # Create figure and add traces
 fig = go.Figure(data=[scatter_trace, data_trace, fit_trace], layout=layout)
 
+fig.show()
