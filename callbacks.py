@@ -10,6 +10,7 @@ from SD import fig2 as SDfig2
 from PTS import fig as PTSfig
 from PTS import fig2 as PTSfig2
 from error_TS import fig as errorTs_fig
+from TS import TS_func
 import dash_bootstrap_components as dbc
 
 
@@ -26,10 +27,12 @@ def render(app: Dash) -> html.Div:
 
     @app.callback(  
             Output(ids.RUN_63, "children"),
-            Input(ids.RUN_DROPDOWN, "value")
+            Input(ids.RUN_DROPDOWN, "value"),
+            Input(ids.MODULE_DROPDOWN, "value"),
+            Input(ids.STREAM_DROPDOWN, "value")
             
         ) 
-    def render_63(value): 
+    def render_63(value, module, stream):
         if value == "Run 63":
             div = html.Div([
                 dbc.Row([
@@ -46,7 +49,12 @@ def render(app: Dash) -> html.Div:
                     ], width=6),
                     dbc.Col([
                         dcc.Graph(figure=errorTs_fig),
-                    ], width=6)
+                    ], width=6),
+                ]),
+                   dbc.Row([
+                    dbc.Col([
+                        dcc.Graph(figure=TS_func(module, stream)),
+                    ], width=12),
                 ]),
 
             ])

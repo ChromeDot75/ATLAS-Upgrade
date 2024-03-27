@@ -6,6 +6,8 @@ import dash_bootstrap_components as dbc
 
 
 all_runs = ["Run 63", "Run 697"]
+module_list = [0, 1]
+stream_list = [1, 2]
 
 
 
@@ -50,10 +52,45 @@ def create_layout(app: Dash) -> html.Div:
                         all_runs,
                         all_runs[0],
                         id=ids.RUN_DROPDOWN,
-                        style={"width" : "100px"}
-                )
+                        style={"width" : "100px", "margin-bottom" : "3px"}
+                ),
                 ],  width={"size": 4, "offset": 1},)
-            ])
+            ]),
+                dbc.Row([
+                dbc.Col(
+                    [
+                        html.H6("Module"),
+                    ],
+                    width={"size": 1, "offset": 0},
+                ),
+                dbc.Col(
+                                    dbc.Select(
+                        module_list,
+                        value=module_list[0],
+                        id=ids.MODULE_DROPDOWN,
+                        style={"width" : "100px", "margin-bottom" : "3px"}
+                ),
+                                    width={"size": 4, "offset": 1},
+                ),
+                ]),
+                dbc.Row([
+                dbc.Col(
+                    [
+                        html.H6("Stream"),
+                    ],
+                    width={"size": 1, "offset": 0},
+                ),
+                dbc.Col(
+                                    dbc.Select(
+                        stream_list,
+                        value=stream_list[0],
+                        id=ids.STREAM_DROPDOWN,
+                        style={"width" : "100px", "margin-bottom" : "3px"}
+                ),
+                                    width={"size": 4, "offset": 1},
+                ),
+                ])
+
 
             
         ]

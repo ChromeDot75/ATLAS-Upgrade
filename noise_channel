@@ -1,7 +1,23 @@
 import uproot 
 import matplotlib.pyplot as plt
-import plotly.express as px
-import pandas as pd
-import plotly.tools as tls
 
-fh = uproot.open(r".\W3_Run_63\data\strun63_3.root") 
+fh = uproot.open(r"N:\CERN\W3_Run_63\data\strun63_4.root")
+
+hist = fh[f'h_sigma0;2']
+
+#fh_sigma_1 = fh["h_sigma0;2"]
+
+data_transposed = hist.values().T
+
+print(len(data_transposed))
+sigma_values = []
+
+for i in range(0,1280):
+    sigma_values.append(data_transposed[i])
+
+
+print(sigma_values)
+print(len(sigma_values))
+     
+#print(data_transposed[0])
+#print(fh_sigma_1)
